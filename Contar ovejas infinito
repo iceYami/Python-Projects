@@ -3,7 +3,7 @@ import time
 def contar_ovejas():
     i = 1
     while True:
-        print(f"{i} ovejas...")
+        print(f"{i} ovejitas...")
         time.sleep(1)
         i += 1
 
