@@ -1,0 +1,291 @@
+from datetime import datetime, timedelta
+
+class Tarea:
+    def __init__(self, nombre, categoria, prioridad=None, fechamax=None):
+        self.nombre = nombre
+        self.categoria = categoria
+        self.prioridad = prioridad
+        self.fechamax = fechamax
+        self.realizada = False
+
+    def __str__(self):
+        estado = "Realizada" if self.realizada else "Pendiente"
+        if self.fechamax:
+            fechamax = self.fechamax.strftime("%d/%m/%Y")
+            return f'Nombre: {self.nombre}\nCategoría: {self.categoria}\nPrioridad: {self.prioridad}\nFecha Máxima: {fechamax}\nEstado: {estado}'
+        else:
+            return f'Nombre: {self.nombre}\nCategoría: {self.categoria}\nEstado: {estado}'
+
+class ListaDeTareas:
+    def __init__(self):
+        self.tareas = []
+
+    def nueva_tarea(self, tarea):
+        self.tareas.append(tarea)
+        print(f'Tarea "{tarea.nombre}" agregada.')
+        self.verificar_recordatorio(tarea)
+
+    def nueva_tarea_simple(self, nombre_tarea):
+        tarea = Tarea(nombre_tarea, "Simple")
+        self.tareas.append(tarea)
+        print(f'Tarea simple "{nombre_tarea}" agregada.')
+
+    def eliminar_tarea(self, nombre):
+        for tarea in self.tareas:
+            if tarea.nombre == nombre:
+                self.tareas.remove(tarea)
+                print(f'Tarea "{nombre}" eliminada.')
+                return
+        print(f'Tarea "{nombre}" inexistente.')
+
+    def completar_tarea(self):
+        tareas_pendientes = [tarea for tarea in self.tareas if not tarea.realizada]
+        if tareas_pendientes:
+            print("Tareas Pendientes:")
+            for index, tarea in enumerate(tareas_pendientes):
+                print(f"{index + 1}. {tarea.nombre}")
+            try:
+                seleccion = int(input("Introduce el número de la tarea a completar: "))
+                if 1 <= seleccion <= len(tareas_pendientes):
+                    tarea = tareas_pendientes[seleccion - 1]
+                    tarea.realizada = True
+                    print(f'Tarea "{tarea.nombre}" marcada como realizada. ¡Buen trabajo!')
+                    return
+                else:
+                    print("Número de tarea inexistente.")
+            except ValueError:
+                print("Entrada inválida. Por favor, introduce un número.")
+        else:
+            print("No hay tareas pendientes.")
+
+    def mostrar_tareas_pendientes(self):
+        if self.tareas:
+            tareas_pendientes = [tarea for tarea in self.tareas if not tarea.realizada]
+            if tareas_pendientes:
+                tareas_por_categoria = {}
+                for tarea in tareas_pendientes:
+                    if tarea.categoria not in tareas_por_categoria:
+                        tareas_por_categoria[tarea.categoria] = []
+                    tareas_por_categoria[tarea.categoria].append(tarea)
+
+                print("Tareas Pendientes:")
+                for categoria, tareas in tareas_por_categoria.items():
+                    print(f"\nCategoría: {categoria}")
+                    for tarea in tareas:
+                        print(tarea)
+                        print()
+            else:
+                print("No hay tareas pendientes en la lista.")
+        else:
+            print("No hay tareas en la lista.")
+
+    def mostrar_tareas_realizadas(self):
+        tareas_realizadas = [tarea for tarea in self.tareas if tarea.realizada]
+        if tareas_realizadas:
+            tareas_por_categoria = {}
+            for tarea in tareas_realizadas:
+                if tarea.categoria not in tareas_por_categoria:
+                    tareas_por_categoria[tarea.categoria] = []
+                tareas_por_categoria[tarea.categoria].append(tarea)
+
+            print("Tareas Realizadas:")
+            for categoria, tareas in tareas_por_categoria.items():
+                print(f"\nCategoría: {categoria}")
+                for tarea in tareas:
+                    print(tarea)
+                    print()
+        else:
+            print("No hay tareas realizadas en la lista.")
+
+import random
+
+frases_animo = 
+[
+    "¡Tú puedes hacerlo!",
+    "¡Sigue adelante, no te rindas!",
+    "Cada paso te acerca más a tu meta. ¡Ánimo!",
+    "La persistencia es la clave del éxito. ¡Vamos!",
+    "Recuerda, los pequeños avances también son importantes.",
+    "Mantén la calma y continúa avanzando.",
+    "Hoy es un buen día para lograr lo que te propones."
+   "Dale a cada día la posibilidad de ser el mejor día de tu vida.",
+    "Haz algo hoy que tu futuro yo te agradezca.",
+    "Los obstáculos son esas cosas espantosas que ves cuando quitas la mirada de tus metas.",
+    "La felicidad es una dirección, no un lugar.",
+    "Hay tres cosas en la vida que una vez que pasan ya no regresan; el tiempo, las palabras y las oportunidades.",
+    "El futuro pertenece a aquellos que creen en la belleza de sus sueños.",
+    "¿Quieres renunciar? Pues entonces es el momento de insistir más.",
+    "No busques el momento perfecto, solo busca el momento y hazlo perfecto.",
+    "Sigue corriendo, no dejes que tus excusas te alcancen.",
+    "El momento en que quieres dejarlo es justo el momento en que tienes que seguir avanzando.",
+    "Mientras más fuertes sean tus pruebas, más grandes serán tus victorias.",
+    "Nunca debes tener miedo de lo que estás haciendo cuando es correcto.",
+    "El momento que da más miedo es siempre justo antes de empezar.",
+    "Todos nuestros sueños se pueden hacer realidad si tenemos el coraje de perseguirlos.",
+    "Si quieres ser feliz en esta vida tendrás que aprender a amar, a perdonar y a olvidar.",
+    "En el momento que dejas de pensar en lo que puede pasar, empiezas a disfrutar de lo que está pasando.",
+    "No tienes que mirar toda la escalera. Para empezar, solo concéntrate en dar el primer paso.",
+    "Si no persigues lo que quieres, nunca lo tendrás. Si no preguntas, la respuesta siempre será no. Si no das un paso adelante, siempre estarás en el mismo lugar.",
+    "Ve con confianza en la dirección de tus sueños. Vive la vida como la has imaginado.",
+    "Cada día despiértate diciéndote que estás vivo, y que eso es un milagro.",
+    "Siempre sé la mejor versión de ti mismo, y la segunda mejor versión de todos los demás.",
+    "Todo lo que necesitas para lograr tus objetivos ya está en ti.",
+    "Busca algo positivo en cada día, incluso cuando algunos días tengas que mirar un poco más.",
+    "La vida nunca es fácil, pero, ¿y qué? Debemos tener perseverancia y creer en nosotros mismos.",
+    "Pasas toda tu vida a tu lado así que aprovecha y disfruta de tu compañía.",
+    "Cuanto mejor te sientas contigo mismo, menos necesidad tendrás de buscar validación.",
+    "Si no puedes volar, corre, si no puedes correr, camina, si no puedes caminar, gatea, pero hagas lo que hagas, sigue adelante.",
+    "No hagas lo que los demás hacen. Haz lo que los demás quisieran hacer y no se atreven.",
+    "Cualquier hecho que enfrentes no es tan importante como tu actitud hacia él, ya que eso determina tu éxito o fracaso.",
+    "La alegría suele entrar por esa puerta que se te había olvidado cerrar.",
+    "Utiliza tu imaginación para inspirarte a lograr lo inimaginable.",
+    "La única diferencia entre un buen y un mal día es tu actitud.",
+    "Deja marcado en tu corazón que cada día es el mejor día del año.",
+    "La suerte de tu día depende de cómo lo afrontes desde primera hora de la mañana.",
+    "El éxito en la vida no se mide por lo que logras sino por los obstáculos que superas.",
+    "Si buscas resultados distintos, no hagas siempre lo mismo.",
+    "Pregúntate si lo que estás haciendo hoy te acerca al lugar en el que quieres estar mañana.",
+    "Sueña como si fueras a vivir para siempre, vive como si fueses a morir hoy.",
+    "Solo vives una vez, pero si lo haces bien, una es suficiente.",
+    "Que cuando mires atrás, te llenes de gratitud y esperanza."
+    "No vas a dominar el resto de tu vida en un día. Relájate. Domina el día. Entonces sigue haciendo eso todos los días",
+    "Aunque nadie puede volver atrás y hacer un nuevo comienzo, cualquiera puede comenzar a partir de ahora y crear un nuevo final - Carl Bard.",
+    "A veces, cuando estás en un lugar oscuro, crees que has sido enterrado, pero en realidad te han plantado",
+    "Eres más fuerte de lo que crees. Más capaz de lo que alguna vez soñaste. Y a ti te aman más de lo que podrías imaginar.",
+    "Es muy sencillo, si pretendes volar tendrás que desprenderte de las cosas que te pesan.",
+    "No es lo que tienes o quién eres o dónde estás o qué haces lo que te hace feliz o infeliz. Es lo que piensas sobre ello, Dale Carnegie.",
+    "Si no te gusta algo, cámbialo; si no lo puedes cambiar, cambia la forma en que piensas sobre ello.",
+    "La vida va a hacerte feliz, no lo dudes. Pero primero tiene que hacerte fuerte.",
+    "Levantarse de una derrota no es fácil, pero es obligatorio, así que deja de pensar en lo que podrías haber hecho y empieza a pensar en qué hacer a partir de ahora.",
+    "Lo que hoy parece un huracán en tu vida, mañana comprenderás que solo era el viento, abriéndote un nuevo camino.",
+    "Los premios se encuentran al final de la competición y no al principio. La copa del vencedor se gana después de mucho cansarse, sudar y sufrir.",
+    "Da tu primer paso ahora. No es necesario que veas el camino completo, pero da tu primer paso. El resto irá apareciendo a medida que camines.",
+    "Lo que ahora te parece algo irremediable, mañana puede ser un gran camino de luz a otra forma de vida distinta.",
+    "Quizá ahora te parezca que sea el fin del mundo. Pero el sol vuelve a salir mañana, no te preocupes.",
+    "Cuando la vida te derriba, trata de aterrizar sobre tu espalda. Porque si puedes mirar hacia arriba, puedes levantarte - Les Brow.",
+    "Tus circunstancias presentes no determinan a dónde vas; simplemente determinan dónde comienza.",
+    "Pronto, cuando todo estés bien, vas a mirar hacia atrás y estarás contento de ver que nunca te rendiste - Brittany Burgunder.",
+    "Recuerda siempre que eres más valiente de lo que crees, más fuerte de lo que pareces, más inteligente de lo que piensas, y el doble de hermoso que lo que imaginas.",
+    "Todo lo que hagas desde que te levantes hasta que te acuestes debe hacerte feliz, sino no lo repitas mañana.",
+    "Busca algo positivo en cada día, incluso cuando algunos días tengas que mirar un poco más.",
+    "Tu vida irá hacia adelante cuando te apartes de las personas y las cosas que te llevan hacia atrás.",
+    "Solo existen dos días en los que no se pueden hacer nada, uno se llama ayer y el otro mañana. Así que hoy es el día de amar, crecer, superarte, ser feliz, pero sobre todas las cosas vivir.",
+    "Siempre que dudes lo lejos que puedes llegar. Solo recuerda lo lejos que has llegado. Recuerda todo lo que has enfrentado, todas las batallas que has ganado y todos los temores que has superado.",
+    "La vida cambia a las orugas por mariposas, a la arena por perlas y al carbón por diamantes usando tiempo y presión. Ella también está trabajando en ti.",
+    "Solo sé tú mismo. Deja que la gente vea a la persona real, imperfecta, extraña, bella y mágica que eres.",
+    "Cada día me despierto diciéndome que estoy vivo, y que eso es un milagro - Jim Carrey.",
+    "Ánimo, que los malos momentos te servirán para valorar la dicha de vivir.",
+    "No te conformes con poco, cuando mereces mucho más. No aceptes menos de lo que vales.",
+    "Nunca debes tener miedo de lo que estás haciendo cuando es correcto - Rosa Parks."
+    "Cuando todo parezca ir en tu contra, recuerda que el avión despega contra el viento. - Henry Ford",
+    "El objetivo no está siempre destinado a ser alcanzado, a menudo sirve simplemente como una meta a la cual que apuntar. - Bruce Lee",
+    "No hay que ir para atrás ni para darse impulso. - Lao Tsé",
+    "Solo imagina lo precioso que puede ser arriesgarse y que todo salga bien. - Mario Benedetti",
+    "La vida es un 10% lo que te sucede y un 90% de cómo reaccionas a ello. - Charles R. Swindoll",
+    "La pregunta no es quién me va a dejar; es quién va a detenerme. - Ayn Rand",
+    "El éxito no se logra solo con cualidades especiales. Es, sobre todo, un trabajo de constancia, de método y de organización. - Víctor Hugo",
+    "Si no puedes volar, corre; si no puedes correr, camina; si no puedes caminar, gatea, pero sigue avanzando hacia tu meta. - Martin Luther King",
+    "La pregunta que me hago casi todos los días es: ¿Estoy haciendo lo más importante que puedo? - Mark Zuckerberg",
+    "Únicamente aquellos que se atreven a tener grandes fracasos, terminan consiguiendo grandes éxitos. - Robert F. Kennedy",
+    "Si vas a mirar atrás, que sea para ver lo que has trabajado para llegar donde estás. - Mireia Belmonte",
+    "No podemos estar en modo de supervivencia. Tenemos que estar en modo de crecimiento. - Jeff Bezos",
+    "Cada fracaso enseña al individuo algo que necesitaba aprender. - Charles Dickens",
+    "El que pasa el tiempo arrepintiéndose del pasado, pierde el presente y arriesga el futuro. - Francisco de Quevedo",
+    "Nunca pienso en las consecuencias de fallar un gran tiro. Cuando se piensa en las consecuencias, se está pensando en un resultado negativo. - Michael Jordan",
+    "Saber lo que hay que hacer elimina el miedo. - Rosa Parks",
+    "La mayor parte de las grandes cosas que ha conseguido el hombre fueron declaradas imposibles antes de que alguien las hiciera. - Louis D. Brandeis",
+    "La vida debe ser comprendida hacia detrás, pero debe ser vivida hacia delante. - Søren Kierkegaard",
+    "Cuando era niño soñaba, pero dejé de soñar y empecé a hacer, porque es el poder de lo que se realiza lo que vuelve los sueños realidad. - Usain Bolt",
+    "La vida es como montar en bicicleta. Para mantener el equilibrio tienes que avanzar. - Albert Einstein",
+    "Todo lo que siempre has querido está al otro lado del miedo. - George Addair",
+    "Vale más actuar exponiéndose a arrepentirse de ello, que arrepentirse de no haber hecho nada. - Giovanni Boccaccio",
+    "Que hoy solo sea hoy, sin el peso de ayer, sin la ansiedad de mañana. Disfruta, sonríe y haz magia con tu día porque vivir el presente es lo mejor que puedes hacer. - @frases_stm",
+    "Nuevo día, nuevos pensamientos, nuevas esperanzas y nuevas oportunidades. - Lailah Gifty Akita",
+    "El que tiene fe en sí mismo no necesita que los demás crean en él. - Miguel de Unamuno",
+    "Lo normal no es algo a lo que aspirar, es algo de lo que debes huir. - Jodie Foster",
+    "Cada historia de éxito es una historia de constante adaptación, revisión y cambio. - Richard Branson",
+    "Las voluntades débiles se traducen en discursos; las fuertes, en actos. - G. Le Bon",
+    "El sueño de todos puede hacerse realidad si te limitas a él y trabajas duro. - Serena Williams",
+    "Demasiada gente no vive sus sueños porque está ocupada viviendo sus miedos. - Les Brown",
+    "La palabra 'no' solo significa que empiezas otra vez en un nivel superior. - Peter Diamandis",
+    "Lo más difícil es la decisión de actuar, el resto es meramente tenacidad. - Amelia Earhart",
+    "Si hay algo en nosotros verdaderamente divino, es la voluntad. Por ella afirmamos la personalidad, templamos el carácter, desafiamos la adversidad, reconstruimos el cerebro y nos superamos diariamente. - Santiago Ramón y Cajal",
+    "A veces hay que pelear las batallas más de una vez para ganarlas. - Margaret Thatcher",
+    "El que pasa el tiempo arrepintiéndose del pasado, pierde el presente y arriesga el futuro. - Francisco de Quevedo",
+    "Trabajar duro por algo que no te importa se llama estrés. Trabajar duro por algo que te importa de verdad, se llama pasión. - Simon Sinek",
+    "Cuanto más grande es la dificultad, más gloria hay en superarla. - Epicuro",
+    "No preguntes cuál es tu lugar en el mundo: siéntate en él. - Emilio Valcárcel",
+    "Me alegro de no estar ganando, eso significa que estoy aprendiendo. - Naomi Osaka",
+    "Cuando todo el mundo está en silencio, incluso una sola voz se vuelve poderosa. - Malala Yousafzai",
+    "Solo el que intenta lo absurdo es capaz de conseguir lo que parecía imposible. - Miguel de Unamuno",
+    "El éxito es la suma de pequeños esfuerzos repetidos día tras día. - Robert Collier",
+    "A veces la adversidad es lo que necesitas encarar para ser exitoso. - Zig Ziglar",
+    "No son las habilidades lo que demuestra lo que somos, son nuestras decisiones. - Harry Potter y la cámara de los secretos",
+]
+
+def mostrar_frase_animo():
+    print("¡Frases de Ánimo!")
+    print(random.choice(frases_animo))
+
+    def verificar_recordatorio(self, tarea):
+        if tarea.fechamax:
+            tiempo_restante = tarea.fechamax - datetime.now()
+            if tiempo_restante == timedelta(days=1):
+                print(f'Recordatorio: La tarea "{tarea.nombre}" está próxima a su fecha máxima.')
+
+def main():
+    print("¡Bienvenida! Vamos a por ello.")
+    lista_de_tareas = ListaDeTareas()
+
+    while True:
+        print("\n1. Nueva Tarea")
+        print("2. Nueva Tarea Simple")
+        print("3. Eliminar Tarea")
+        print("4. Completar Tarea")
+        print("5. Visualizar Tareas Pendientes")
+        print("6. Visualizar Tareas Realizadas")
+        print("7. Frases de Ánimo")
+        print("8. Salir")
+
+        opcion = input("Introduce tu elección (1-8): ")
+
+        if opcion == '1':
+            nombre = input("Introduce el nombre de la tarea: ")
+            categoria = input("Introduce la categoría: ")
+            prioridad = input("Introduce la prioridad (opcional): ")
+            fechamax_str = input("Introduce la fecha máxima (opcional, formato: dd/mm/yyyy): ")
+            try:
+                if fechamax_str:
+                    fechamax = datetime.strptime(fechamax_str, "%d/%m/%Y")
+
+                else:
+                    fechamax = None
+            except ValueError:
+                print("Fecha inválida. El formato debe ser dd/mm/yyyy.")
+                continue
+
+            tarea = Tarea(nombre, categoria, prioridad, fechamax)
+            lista_de_tareas.nueva_tarea(tarea)
+        elif opcion == '2':
+            nombre = input("Introduce la tarea simple: ")
+            lista_de_tareas.nueva_tarea_simple(nombre)
+        elif opcion == '3':
+            nombre = input("Introduce la tarea que quieras eliminar: ")
+            lista_de_tareas.eliminar_tarea(nombre)
+        elif opcion == '4':
+            lista_de_tareas.completar_tarea()
+        elif opcion == '5':
+            lista_de_tareas.mostrar_tareas_pendientes()
+        elif opcion == '6':
+            lista_de_tareas.mostrar_tareas_realizadas()
+        elif opcion == '7':
+            mostrar_frase_animo()
+        elif opcion == '8':
+            print("Saliendo, hasta luego...")
+            break
+     
+   else:
+ print("Opción inexistente, introduce un número entre 1 y 7. ¡A por ello!")
+
+if __name__ == "__main__":
+    main()
