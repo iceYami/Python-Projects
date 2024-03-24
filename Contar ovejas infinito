@@ -1,0 +1,7 @@
+def contar_ovejas():
+    i = 1
+    while True:
+        print(f"{i} ovejas...", end="")
+        i += 1
+
+contar_ovejas()
