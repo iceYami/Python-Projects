@@ -1,4 +1,4 @@
-#Convert boolean values to strings 'Yes' or 'No'.
+# Convertir valores booleanos a cadenas Yes o No
 def bool_to_word(boolean):
     if boolean:
         return 'Yes'
