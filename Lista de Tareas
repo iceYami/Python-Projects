@@ -236,7 +236,7 @@ def mostrar_frase_animo():
                 print(f'Recordatorio: La tarea "{tarea.nombre}" está próxima a su fecha máxima.')
 
 def main():
-    print("¡Bienvenida! Vamos a por ello.")
+    print("¡Bienvenida a la Lista de Tareas de MG! Vamos a por ello.")
     lista_de_tareas = ListaDeTareas()
 
     while True:
