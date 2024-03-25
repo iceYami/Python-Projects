@@ -94,7 +94,6 @@ class CV:
         </div>
         <div class="right"></div>
         <div id="footer">
-          <h2 id="name">{self.nombre_apellidos}</h2>
         </div>
         """
         return html
