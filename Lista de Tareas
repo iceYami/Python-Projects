@@ -115,7 +115,6 @@ def main():
 
     nombre_archivo = "tareas.txt"
 
-    # Verificar si hay un archivo de tareas existente
     try:
         with open(nombre_archivo, 'r') as file:
             tareas_copiadas = file.read()
