@@ -104,10 +104,6 @@ class ListaDeTareas:
             if tiempo_restante == timedelta(days=1):
                 print(f'Recordatorio: La tarea "{tarea.nombre}" está próxima a su fecha máxima.')
 
-def mostrar_frase_animo():
-    print("¡Frases de Ánimo!")
-    print(random.choice(frases_animo))
-
 def main():
     print("¡Bienvenida a la Lista de Tareas de MG! Vamos a por ello.")
     lista_de_tareas = ListaDeTareas()
@@ -119,43 +115,42 @@ def main():
         print("4. Completar Tarea")
         print("5. Visualizar Tareas Pendientes")
         print("6. Visualizar Tareas Realizadas")
-        print("7. Frases de Ánimo")
-        print("8. Salir")
-    opcion = input("Introduce tu elección (1-8): ")
+        print("7. Salir")
+        opcion = input("Introduce tu elección (1-7): ")
 
-    if opcion == '1':
-        nombre = input("Introduce el nombre de la tarea: ")
-        categoria = input("Introduce la categoría: ")
-        prioridad = input("Introduce la prioridad (opcional): ")
-        fechamax_str = input("Introduce la fecha máxima (opcional, formato: dd/mm/yyyy): ")
-        try:
-            if fechamax_str:
-                fechamax = datetime.strptime(fechamax_str, "%d/%m/%Y")
+        if opcion == '1':
+            nombre = input("Introduce el nombre de la tarea: ")
+            categoria = input("Introduce la categoría: ")
+            prioridad = input("Introduce la prioridad (opcional): ")
+            fechamax_str = input("Introduce la fecha máxima (opcional, formato: dd/mm/yyyy): ")
+            try:
+                if fechamax_str:
+                    fechamax = datetime.strptime(fechamax_str, "%d/%m/%Y")
+                else:
+                    fechamax = None
+            except ValueError:
+                print("Fecha inválida. El formato debe ser dd/mm/yyyy.")
+                continue  # Mover la instrucción continue aquí
 
-            else:
-                fechamax = None
-        except ValueError:
-            print("Fecha inválida. El formato debe ser dd/mm/yyyy.")
-            continue
+            tarea = Tarea(nombre, categoria, prioridad, fechamax)
+            lista_de_tareas.nueva_tarea(tarea)
+        elif opcion == '2':
+            nombre = input("Introduce la tarea simple: ")
+            lista_de_tareas.nueva_tarea_simple(nombre)
+        elif opcion == '3':
+            nombre = input("Introduce la tarea que quieras eliminar: ")
+            lista_de_tareas.eliminar_tarea(nombre)
+        elif opcion == '4':
+            lista_de_tareas.completar_tarea()
+        elif opcion == '5':
+            lista_de_tareas.mostrar_tareas_pendientes()
+        elif opcion == '6':
+            lista_de_tareas.mostrar_tareas_realizadas()
+        elif opcion == '7':
+            print("Saliendo, hasta luego...")
+            break
+        else:
+            print("Opción inexistente, introduce una opción válida. ¡A por ello!")
 
-        tarea = Tarea(nombre, categoria, prioridad, fechamax)
-        lista_de_tareas.nueva_tarea(tarea)
-    elif opcion == '2':
-        nombre = input("Introduce la tarea simple: ")
-        lista_de_tareas.nueva_tarea_simple(nombre)
-    elif opcion == '3':
-        nombre = input("Introduce la tarea que quieras eliminar: ")
-        lista_de_tareas.eliminar_tarea(nombre)
-    elif opcion == '4':
-        lista_de_tareas.completar_tarea()
-    elif opcion == '5':
-        lista_de_tareas.mostrar_tareas_pendientes()
-    elif opcion == '6':
-        lista_de_tareas.mostrar_tareas_realizadas()
-    elif opcion == '7':
-        mostrar_frase_animo()
-    elif opcion == '8':
-        print("Saliendo, hasta luego...")
-        break
-    else:
-        print("Opción inexistente, introduce un número entre 1 y 8. ¡A por ello!")
+if __name__ == "__main__":
+    main()
