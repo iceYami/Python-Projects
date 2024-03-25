@@ -1,4 +1,4 @@
-# Generador de Contraseñas Seguras
+# Generador de Contraseñas Seguras de MG
 
 import random
 import string
