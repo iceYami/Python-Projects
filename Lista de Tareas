@@ -104,9 +104,28 @@ class ListaDeTareas:
             if tiempo_restante == timedelta(days=1):
                 print(f'Recordatorio: La tarea "{tarea.nombre}" está próxima a su fecha máxima.')
 
+    def guardar_tareas_en_archivo(self, nombre_archivo):
+        with open(nombre_archivo, 'w') as file:
+            for tarea in self.tareas:
+                file.write(str(tarea) + '\n\n')
+
 def main():
     print("¡Bienvenida a la Lista de Tareas de MG! Vamos a por ello.")
     lista_de_tareas = ListaDeTareas()
+
+    nombre_archivo = "tareas.txt"
+
+    # Verificar si hay un archivo de tareas existente
+    try:
+        with open(nombre_archivo, 'r') as file:
+            tareas_copiadas = file.read()
+        print("Se han encontrado tareas previamente guardadas. ¿Deseas recuperarlas?")
+        recuperar = input("Introduce 's' para sí, o 'n' para no: ")
+        if recuperar.lower() == 's':
+            print("\nTareas recuperadas:")
+            print(tareas_copiadas)
+    except FileNotFoundError:
+        print("No se encontró un archivo de tareas previamente guardado.")
 
     while True:
         print("\n1. Nueva Tarea")
@@ -115,8 +134,9 @@ def main():
         print("4. Completar Tarea")
         print("5. Visualizar Tareas Pendientes")
         print("6. Visualizar Tareas Realizadas")
-        print("7. Salir")
-        opcion = input("Introduce tu elección (1-7): ")
+        print("7. Guardar Tareas en Archivo")
+        print("8. Salir")
+        opcion = input("Introduce tu elección (1-8): ")
 
         if opcion == '1':
             nombre = input("Introduce el nombre de la tarea: ")
@@ -125,12 +145,12 @@ def main():
             fechamax_str = input("Introduce la fecha máxima (opcional, formato: dd/mm/yyyy): ")
             try:
                 if fechamax_str:
-                    fechamax = datetime.strptime(fechamax_str, "%d/%m/%Y")
+                    fechamax = datetime.strptime(fechamax_str,"%d/%m/%Y")
                 else:
                     fechamax = None
             except ValueError:
                 print("Fecha inválida. El formato debe ser dd/mm/yyyy.")
-                continue  # Mover la instrucción continue aquí
+                continue
 
             tarea = Tarea(nombre, categoria, prioridad, fechamax)
             lista_de_tareas.nueva_tarea(tarea)
@@ -147,10 +167,13 @@ def main():
         elif opcion == '6':
             lista_de_tareas.mostrar_tareas_realizadas()
         elif opcion == '7':
+            lista_de_tareas.guardar_tareas_en_archivo(nombre_archivo)
+            print("Tareas guardadas en el archivo 'tareas.txt'.")
+        elif opcion == '8':
             print("Saliendo, hasta luego...")
             break
         else:
-            print("Opción inexistente, introduce una opción válida. ¡A por ello!")
+            print("Opción inexistente, introduce una opción válida.")
 
 if __name__ == "__main__":
     main()
