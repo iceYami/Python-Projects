@@ -1,4 +1,4 @@
-#Generador de Contraseñas Seguras
+# Generador de Contraseñas Seguras
 
 import random
 import string
@@ -8,5 +8,8 @@ def gen_contrasena(longitud=12):
     contrasena = ''.join(random.choice(caracteres) for _ in range(longitud))
     return contrasena
 
+# Mensaje de bienvenida
+print("¡Bienvenida al Generador de Contraseñas Seguras de MG!")
+
 contrasena = gen_contrasena()
-print("Aqui tienes tu contraseña:", contrasena)
+print("Aquí tienes tu contraseña, cuídala:", contrasena)
