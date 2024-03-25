@@ -1,4 +1,4 @@
-#Calculadora de Salarios Tecnológicos 2023
+#Calculadora de Salarios Tecnológicos 2023 de MG
 
 salarios = {
     "DEVOPS": {
@@ -97,7 +97,7 @@ def volver_menu():
     if respuesta.lower() == 's':
         calcular_salario()
     elif respuesta.lower() == 'n':
-        print("Gracias por usar la calculadora de salario, ¡hasta luego!")
+        print("Gracias por usar la calculadora de salario de MG, ¡hasta luego!")
     else:
         print("Opción inválida.")
         volver_menu()
