@@ -119,7 +119,7 @@ def main():
     try:
         with open(nombre_archivo, 'r') as file:
             tareas_copiadas = file.read()
-        print("Se han encontrado tareas previamente guardadas. ¿Deseas recuperarlas?")
+        print("Se han encontrado tareas previamente guardadas. ¿Quieres recuperarlas?")
         recuperar = input("Introduce 's' para sí, o 'n' para no: ")
         if recuperar.lower() == 's':
             print("\nTareas recuperadas:")
@@ -149,7 +149,7 @@ def main():
                 else:
                     fechamax = None
             except ValueError:
-                print("Fecha inválida. El formato debe ser dd/mm/yyyy.")
+                print("Fecha inválida. El formato es dd/mm/yyyy.")
                 continue
 
             tarea = Tarea(nombre, categoria, prioridad, fechamax)
