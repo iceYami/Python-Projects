@@ -9,7 +9,7 @@ def generar_continuacion(frases, historia_actual):
 
 def main():
     frases = [
-        "Leah era una noble que vivía en una fortaleza.",
+        "Leah era una noble paladín que vivía en una fortaleza.",
         "Airen era una antigua prisionera de inusual condición, que ganó su libertad.",
         "Leah luchaba contra todo tipo de monstruos y seres malignos.",
         "Airen tenía un extraño poder en su interior, que le permitía manejar el fuego a voluntad.",
