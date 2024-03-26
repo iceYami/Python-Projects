@@ -11,7 +11,7 @@ def main():
     frases = [
         "Leah era una noble que vivía en una fortaleza.",
         "Airen era una antigua prisionera que ganó su libertad.",
-        "Leah luchaba contra todo tipo de monstruos, corruptos y magos oscuros.",
+        "Leah luchaba contra todo tipo de monstruos y seres malignos.",
         "Airen tenía un extraño poder en su interior, que le permitía manejar el fuego a voluntad.",
         "Los magos oscuros atacaron a Airen, atraídos por su poder.",
         "Leah defendió a Airen, protegiéndola frente a quienes querían hacerle daño.",
