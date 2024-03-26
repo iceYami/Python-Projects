@@ -1,5 +1,5 @@
-# Libro Yuri Aventuras de MG
-class YuriAventuras:
+# Libro Aventuras de MG
+class Aventuras:
     def __init__(self):
         self.paginas = {}
         self.pagina_actual = None
@@ -15,14 +15,14 @@ class YuriAventuras:
             siguiente_pagina = self.paginas[self.pagina_actual]["opciones"][opcion]
             # Verificar si es una página final y mostrar mensaje de agradecimiento
             if not self.paginas[siguiente_pagina]["opciones"]:
-                print("Gracias por jugar la YuriAventura de MG")
+                print("Gracias por jugar la Aventura de MG")
             else:
                 print(self.paginas[siguiente_pagina]["texto"])
             self.pagina_actual = siguiente_pagina
         else:
             print("Opción inválida. Elige otra opción.")
 
-libro = YuriAventuras()
+libro = Aventuras()
 
 # Agregar páginas
 libro.agregar_pagina(1, "Te encuentras en una bifurcación con dos caminos, ¿cuál eliges? (1 o 2)", {"1": 2, "2": 3})
