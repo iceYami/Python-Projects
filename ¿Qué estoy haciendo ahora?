@@ -34,18 +34,18 @@ def obtener_actividad(dia, hora):
 
 def obtener_hora():
     while True:
-        hora = input("¿Qué hora es? (Formato H.MM, HH.MM, H:MM o HH:MM): ")
+        hora = input("¿Qué hora es?: ")
         if re.match(r'^\d{1,2}(\.|:)\d{2}$', hora):
             return hora
         else:
-            print("Formato de hora inválido. Inténtalo de nuevo.")
+            print("Formato de hora inválido. ")
 
 def main():
     print("¡Bienvenida al Organizador!")
     while True:
         print("1. Introduce día y hora")
         print("2. Finalizar")
-        opcion = input("¿Qué quieres hacer? (Escribe 1 o 2): ")
+        opcion = input("¿Qué quieres hacer?: ")
         
         if opcion == "1":
             dia = input("¿Qué día de la semana es hoy?: ")
@@ -58,7 +58,7 @@ def main():
             print("¡Nos vemos luego!")
             break
         else:
-            print("Opción no válida. Por favor, elige 1 o 2.")
+            print("Opción no válida.")
 
 if __name__ == "__main__":
     main()
