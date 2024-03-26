@@ -1,0 +1,48 @@
+def obtener_actividad(dia, hora):
+    if dia in ["Lunes", "Martes", "Miércoles", "Jueves"]:
+        if hora >= "00:00" and hora < "06:00":
+            return "Durmiendo"
+        elif hora >= "06:00" and hora < "07:30":
+            return "Desayunando"
+        elif hora >= "07:30" and hora < "08:00":
+            return "En transporte hacia el trabajo"
+        elif hora >= "08:00" and hora < "15:00":
+            return "Trabajando"
+        elif hora >= "15:00" and hora < "18:00":
+            if dia in ["Martes", "Jueves"]:
+                return "Trabajando"
+            else:
+                return "Descansando"
+        elif hora >= "18:30" and hora < "20:00":
+            return "Estudiando"
+        else:
+            return "Descansando"
+    elif dia == "Viernes":
+        if hora == "16:00":
+            return "Durmiendo siesta"
+        elif hora >= "00:00" and hora < "06:00":
+            return "Durmiendo"
+        else:
+            return "Descansando"
+    else:
+        if hora >= "00:00" and hora < "06:00":
+            return "Durmiendo"
+        else:
+            return "Descansando"
+
+def main():
+    print("¡Bienvenida al Observador!")
+    while True:
+        dia = input("¿Qué día de la semana es hoy?: ")
+        hora = input("¿Qué hora es?: ")
+
+        actividad = obtener_actividad(dia.capitalize(), hora)
+
+        print("Deberías estar:", actividad)
+
+        continuar = input("¿Quieres verificar otra vez? (Sí/No): ")
+        if continuar.lower() != "sí":
+            break
+
+if __name__ == "__main__":
+    main()
