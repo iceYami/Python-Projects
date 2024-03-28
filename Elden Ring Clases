@@ -1,0 +1,49 @@
+def mostrar_menu_clases():
+
+    print("¡Bienvenida a la Breve Guía de Clases para Elden Ring de MG!")
+
+    print("Elige una clase para tu personaje:")
+    print("1. Vagante")
+    print("2. Guerrero")
+    print("3. Heroe")
+    print("4. Bandido")
+    print("5. Astrologo")
+    print("6. Profeta")
+    print("7. Samurai")
+    print("8. Prisionero")
+    print("9. Confesor")
+    print("10. Miserable")
+
+def obtener_info_clase(clase):
+
+    clases = {
+        1: ("Vagante", "fuerza, resistencia y vigor", "Espada del Señor"),
+        2: ("Guerrero", "vigor, resistencia, destreza y fuerza", "Espadón de Starscourge,Espada de escamas de dragón de Magma"),
+        3: ("Heroe", "fuerza, resistencia, vigor y destreza", "Espadón de Hoja Injertada"),
+        4: ("Bandido", "destreza, aguante, vigor y arcano", "Reduvia "),
+        5: ("Astrologo", "inteligencia, mente, aguante y vigor", "Bastón de piedra refulgente de Azur")
+        6: ("Profeta", "mente, fe, vigor y arcano", "Guadaña Alada"),
+        7: ("Samurai", "destreza, vigor, aguante y mente", "Ríos de sangre"),
+        8: ("Prisionero", "inteligencia, vigor, mente y destreza", "Estoque de Rogier"),
+        9: ("Confesor", "fe, vigor, mente y destreza", "Guadaña Alada"),
+        10: ("Miserable", "fuerza, destreza e inteligencia, vigor y aguante", "Reduvia"),
+
+    }
+    return clases.get(clase)
+
+def main():
+    mostrar_menu_clases()
+    seleccion = int(input("Elige la clase: "))
+
+    if seleccion < 1 or seleccion > 5:
+        print("Selección inválida.")
+        return
+
+    clase, atributos, mejor_arma = obtener_info_clase(seleccion)
+
+    print(f"Has escogido la clase {clase}.")
+    print(f"Atributos recomendados: {atributos}.")
+    print(f"Mejor arma: {mejor_arma}.")
+
+if __name__ == "__main__":
+    main()
