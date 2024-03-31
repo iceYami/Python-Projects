@@ -8,7 +8,6 @@ def gen_contrasena(longitud=12):
     contrasena = ''.join(random.choice(caracteres) for _ in range(longitud))
     return contrasena
 
-# Mensaje de bienvenida
 print("¡Bienvenida al Generador de Contraseñas Seguras de MG!")
 
 contrasena = gen_contrasena()
