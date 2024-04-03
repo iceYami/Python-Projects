@@ -2,13 +2,13 @@
 
 def generar_contrato():
 
-    empresa_nombre = input("Nombre o razón social de la empresa: ")
+    empresa_nombre = input("Nombre de la empresa: ")
     empresa_cif = input("CIF/NIF/NIE de la empresa: ")
     trabajador_nombre = input("Nombre del trabajador: ")
     trabajador_dni = input("DNI del trabajador: ")
-    fecha_inicio = input("Fecha de inicio de la relación laboral (DD/MM/AAAA): ")
-    cargo = input("Cargo del trabajador: ")
-    salario = input("Salario del trabajador: ")
+    fecha_inicio = input("Fecha de inicio (DD/MM/AAAA): ")
+    puesto = input("Puesto: ")
+    salario = input("Salario: ")
     
  nombre_archivo = f"Contrato_{trabajador_nombre.replace(' ', '_')}.doc"
  with open(nombre_archivo, "w") as archivo:
