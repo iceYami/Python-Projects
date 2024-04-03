@@ -1,3 +1,5 @@
+# Generador de contratos de MG
+
 def generar_contrato():
 
     empresa_nombre = input("Nombre o razón social de la empresa: ")
