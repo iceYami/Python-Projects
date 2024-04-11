@@ -12,11 +12,11 @@ def obtener_actividad(dia, hora):
             return "Trabajando"
         elif hora >= "15:00" and hora < "18:00":
             if dia in ["Martes", "Jueves"]:
-                return "Trabajando"
+                return "Estudiando"
             else:
                 return "Descansando"
         elif hora >= "18:30" and hora < "20:00":
-            return "Estudiando"
+            return "Tiempo de libre organización"
         else:
             return "Descansando"
     elif dia == "Viernes":
