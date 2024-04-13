@@ -11,12 +11,10 @@ def cifrar_texto(texto):
             if indice != -1:
                 if caracter.islower():
                     resultado += alfabeto_pashto[(indice + 3) % len(alfabeto_pashto)]
-
                 else:
                     resultado += alfabeto_pashto[(indice + 3) % len(alfabeto_pashto)].upper()
             else:
                 resultado += caracter
-
         else:
             resultado += caracter
     
@@ -28,22 +26,15 @@ def descifrar_texto(texto):
     alfabeto_pashto = "وزيدوارښيګکڅجچپتسدفبغعظړږ"
     
     for caracter in texto:
-
         if caracter.isalpha():
-
             indice = alfabeto_pashto.find(caracter.lower())
-
             if indice != -1:
-
-            if caracter.islower():
+                if caracter.islower():
                     resultado += alfabeto_espanol[(indice - 3) % len(alfabeto_pashto)]
-
                 else:
                     resultado += alfabeto_espanol[(indice - 3) % len(alfabeto_pashto)].upper()
-
             else:
                 resultado += caracter
-
         else:
             resultado += caracter
     
@@ -61,7 +52,6 @@ def menu():
         opcion = input("Introduce tu opción: ")
 
         if opcion == '1':
-
             texto = input("Introduce el texto a cifrar: ")
             texto_cifrado = cifrar_texto(texto)
             print("Texto cifrado:", texto_cifrado)
@@ -79,3 +69,4 @@ def menu():
             print("Opción inválida.")
 
 menu()
+
