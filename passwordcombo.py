@@ -1,0 +1,87 @@
+def dividir_en_silabas(palabra):
+    vocales = 'aeiouáéíóú'
+    silabas = []
+    silaba_actual = ''
+
+    for letra in palabra:
+        if letra.lower() in vocales:
+            silaba_actual += letra
+        else:
+            silaba_actual += letra
+            if len(silaba_actual) >= 2 and silaba_actual[-2].lower() not in vocales:
+                silabas.append(silaba_actual[:-1])
+                silaba_actual = silaba_actual[-1]
+
+    if silaba_actual:
+        silabas.append(silaba_actual)
+
+    return silabas
+
+def combinaciones_palabras(palabras):
+    combinaciones = []
+    for i in range(len(palabras)):
+        combinaciones.append(palabras[i])
+        for j in range(i + 1, len(palabras)):
+            combinaciones.append(palabras[i] + palabras[j])
+    return combinaciones
+
+def combinaciones_silabas(silabas):
+    combinaciones = []
+    for i in range(len(silabas)):
+        combinaciones.append(silabas[i])
+        for j in range(i + 1, len(silabas)):
+            combinaciones.append(silabas[i] + silabas[j])
+    return combinaciones
+
+def pedir_palabras():
+    palabras = []
+    while True:
+        palabra = input("Introduce una palabra (introduce '2' para finalizar): ")
+        if palabra == '2':
+            break
+        palabras.append(palabra)
+    return palabras
+
+def mostrar_menu():
+    print("\nBienvenida al combinador de palabras y generador de contraseñas")
+    print("1. Introduce palabras")
+    print("2. Genera combinaciones de las palabras")
+    print("3. Salir")
+
+def main():
+    palabras = []
+    while True:
+        mostrar_menu()
+        opcion = input("Elige una opción: ")
+
+        if opcion == '1':
+            palabras.extend(pedir_palabras())
+        elif opcion == '2':
+            if palabras:
+                print("\n¿Deseas combinar las palabras o las sílabas de las palabras?")
+                print("1. Combinar palabras")
+                print("2. Combinar sílabas de las palabras")
+                opcion_combinacion = input("Selecciona una opción: ")
+                
+                if opcion_combinacion == '1':
+                    combinaciones = combinaciones_palabras(palabras)
+                elif opcion_combinacion == '2':
+                    silabas = [dividir_en_silabas(p) for p in palabras]
+                    combinaciones = combinaciones_silabas(silabas)
+                else:
+                    print("Opción inválida.")
+                    continue
+                
+                print("\nCombinaciones:")
+                for combinacion in combinaciones:
+                    print(combinacion)
+            else:
+                print("No has introducido ninguna palabra.")
+        elif opcion == '3':
+            print("¡Hasta luego!")
+            break
+        else:
+            print("Opción inválida.")
+
+if __name__ == "__main__":
+    main()
