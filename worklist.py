@@ -1,0 +1,178 @@
+from datetime import datetime, timedelta
+import random
+
+class Tarea:
+    def __init__(self, nombre, categoria, prioridad=None, fechamax=None):
+        self.nombre = nombre
+        self.categoria = categoria
+        self.prioridad = prioridad
+        self.fechamax = fechamax
+        self.realizada = False
+
+    def __str__(self):
+        estado = "Realizada" if self.realizada else "Pendiente"
+        if self.fechamax:
+            fechamax = self.fechamax.strftime("%d/%m/%Y")
+            return f'Nombre: {self.nombre}\nCategoría: {self.categoria}\nPrioridad: {self.prioridad}\nFecha Máxima: {fechamax}\nEstado: {estado}'
+        else:
+            return f'Nombre: {self.nombre}\nCategoría: {self.categoria}\nEstado: {estado}'
+
+class ListaDeTareas:
+    def __init__(self):
+        self.tareas = []
+
+    def nueva_tarea(self, tarea):
+        self.tareas.append(tarea)
+        print(f'Tarea "{tarea.nombre}" agregada.')
+        self.verificar_recordatorio(tarea)
+
+    def nueva_tarea_simple(self, nombre_tarea):
+        tarea = Tarea(nombre_tarea, "Simple")
+        self.tareas.append(tarea)
+        print(f'Tarea simple "{nombre_tarea}" agregada.')
+
+    def eliminar_tarea(self, nombre):
+        for tarea in self.tareas:
+            if tarea.nombre == nombre:
+                self.tareas.remove(tarea)
+                print(f'Tarea "{nombre}" eliminada.')
+                return
+        print(f'Tarea "{nombre}" inexistente.')
+
+    def completar_tarea(self):
+        tareas_pendientes = [tarea for tarea in self.tareas if not tarea.realizada]
+        if tareas_pendientes:
+            print("Tareas Pendientes:")
+            for index, tarea in enumerate(tareas_pendientes):
+                print(f"{index + 1}. {tarea.nombre}")
+            try:
+                seleccion = int(input("Introduce el número de la tarea a completar: "))
+                if 1 <= seleccion <= len(tareas_pendientes):
+                    tarea = tareas_pendientes[seleccion - 1]
+                    tarea.realizada = True
+                    print(f'Tarea "{tarea.nombre}" marcada como realizada. ¡Buen trabajo!')
+                    return
+                else:
+                    print("Número de tarea inexistente.")
+            except ValueError:
+                print("Entrada inválida. Por favor, introduce un número.")
+        else:
+            print("No hay tareas pendientes.")
+
+    def mostrar_tareas_pendientes(self):
+        if self.tareas:
+            tareas_pendientes = [tarea for tarea in self.tareas if not tarea.realizada]
+            if tareas_pendientes:
+                tareas_por_categoria = {}
+                for tarea in tareas_pendientes:
+                    if tarea.categoria not in tareas_por_categoria:
+                        tareas_por_categoria[tarea.categoria] = []
+                    tareas_por_categoria[tarea.categoria].append(tarea)
+
+                print("Tareas Pendientes:")
+                for categoria, tareas in tareas_por_categoria.items():
+                    print(f"\nCategoría: {categoria}")
+                    for tarea in tareas:
+                        print(tarea)
+                        print()
+            else:
+                print("No hay tareas pendientes en la lista.")
+        else:
+            print("No hay tareas en la lista.")
+
+    def mostrar_tareas_realizadas(self):
+        tareas_realizadas = [tarea for tarea in self.tareas if tarea.realizada]
+        if tareas_realizadas:
+            tareas_por_categoria = {}
+            for tarea in tareas_realizadas:
+                if tarea.categoria not in tareas_por_categoria:
+                    tareas_por_categoria[tarea.categoria] = []
+                tareas_por_categoria[tarea.categoria].append(tarea)
+
+            print("Tareas Realizadas:")
+            for categoria, tareas in tareas_por_categoria.items():
+                print(f"\nCategoría: {categoria}")
+                for tarea in tareas:
+                    print(tarea)
+                    print()
+        else:
+            print("No hay tareas realizadas en la lista.")
+
+    def verificar_recordatorio(self, tarea):
+        if tarea.fechamax:
+            tiempo_restante = tarea.fechamax - datetime.now()
+            if tiempo_restante == timedelta(days=1):
+                print(f'Recordatorio: La tarea "{tarea.nombre}" está próxima a su fecha máxima.')
+
+    def guardar_tareas_en_archivo(self, nombre_archivo):
+        with open(nombre_archivo, 'w') as file:
+            for tarea in self.tareas:
+                file.write(str(tarea) + '\n\n')
+
+def main():
+    print("¡Bienvenida a la Lista de Tareas de MG! Vamos a por ello.")
+    lista_de_tareas = ListaDeTareas()
+
+    nombre_archivo = "tareas.txt"
+
+    try:
+        with open(nombre_archivo, 'r') as file:
+            tareas_copiadas = file.read()
+        print("Se han encontrado tareas previamente guardadas. ¿Quieres recuperarlas?")
+        recuperar = input("Introduce 's' para sí, o 'n' para no: ")
+        if recuperar.lower() == 's':
+            print("\nTareas recuperadas:")
+            print(tareas_copiadas)
+    except FileNotFoundError:
+        print("No se encontró un archivo de tareas previamente guardado.")
+
+    while True:
+        print("\n1. Nueva Tarea")
+        print("2. Nueva Tarea Simple")
+        print("3. Eliminar Tarea")
+        print("4. Completar Tarea")
+        print("5. Visualizar Tareas Pendientes")
+        print("6. Visualizar Tareas Realizadas")
+        print("7. Guardar Tareas en Archivo")
+        print("8. Salir")
+        opcion = input("Introduce tu elección (1-8): ")
+
+        if opcion == '1':
+            nombre = input("Introduce el nombre de la tarea: ")
+            categoria = input("Introduce la categoría: ")
+            prioridad = input("Introduce la prioridad (opcional): ")
+            fechamax_str = input("Introduce la fecha máxima (opcional, formato: dd/mm/yyyy): ")
+            try:
+                if fechamax_str:
+                    fechamax = datetime.strptime(fechamax_str,"%d/%m/%Y")
+                else:
+                    fechamax = None
+            except ValueError:
+                print("Fecha inválida. El formato es dd/mm/yyyy.")
+                continue
+
+            tarea = Tarea(nombre, categoria, prioridad, fechamax)
+            lista_de_tareas.nueva_tarea(tarea)
+        elif opcion == '2':
+            nombre = input("Introduce la tarea simple: ")
+            lista_de_tareas.nueva_tarea_simple(nombre)
+        elif opcion == '3':
+            nombre = input("Introduce la tarea que quieras eliminar: ")
+            lista_de_tareas.eliminar_tarea(nombre)
+        elif opcion == '4':
+            lista_de_tareas.completar_tarea()
+        elif opcion == '5':
+            lista_de_tareas.mostrar_tareas_pendientes()
+        elif opcion == '6':
+            lista_de_tareas.mostrar_tareas_realizadas()
+        elif opcion == '7':
+            lista_de_tareas.guardar_tareas_en_archivo(nombre_archivo)
+            print("Tareas guardadas en el archivo 'tareas.txt'.")
+        elif opcion == '8':
+            print("Saliendo, hasta luego...")
+            break
+        else:
+            print("Opción inexistente, introduce una opción válida.")
+
+if __name__ == "__main__":
+    main()
