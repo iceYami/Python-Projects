@@ -1,0 +1,44 @@
+import random
+
+def generar_continuacion(frases, historia_actual):
+    siguiente_frase = random.choice(frases)
+
+    historia_actual += " " + siguiente_frase
+
+    return historia_actual
+
+def main():
+    frases = [
+        "Leah era una noble paladín que vivía en una fortaleza.",
+        "Airen era una antigua prisionera de inusual condición, que ganó su libertad.",
+        "Leah luchaba contra todo tipo de monstruos y seres malignos.",
+        "Airen tenía un extraño poder en su interior, que le permitía manejar el fuego a voluntad.",
+        "Los magos oscuros atacaron a Airen, atraídos por su poder.",
+        "Leah defendió a Airen, protegiéndola frente a quienes querían hacerle daño.",
+        "Leah sufrió un tajo en el brazo, pero la herida y el dolor no impidieron que cesara su defensa.",
+        "Cuando huyeron los magos oscuros, Leah ayudó a levantarse a Airen, que había caído al suelo y estaba herida.",
+        "Airen encontró un libro de los magos oscuros, y se lo ofreció a Leah.",
+        "Los magos oscuros invocaron fuerzas del plano tenebroso para que les ayudasen.",
+        "El ejército invisible observaba en la distancia desde el otro lado del velo.",
+        "Leah comprendió...",
+
+    ]
+
+    historia = random.choice(frases)
+
+    print("¡Bienvenida al generador de historia aleatoria! Esta historia va alterando el orden de sus partes, de manera que puede cambiar tu entendimiento")
+    print("Aquí comienza nuestra historia:")
+    print(historia)
+
+    while True:
+        continuar = input("Presiona Enter para continuar la historia, o escribe 'fin' para terminar: ")
+        if continuar.lower() == 'fin':
+            print("¡Fin!")
+            break
+
+        historia = generar_continuacion(frases, historia)
+        print("\nContinuación de la historia:")
+        print(historia)
+
+if __name__ == "__main__":
+    main()
