@@ -1,16 +1,16 @@
 import random
 
-def choose_random(lst):
-    index = int((len(lst) * (hash(str(lst)) % 100) / 100)) % len(lst)
-    return lst[index]
+def elegir_aleatorio(lista):
+    indice = int((len(lista) * (hash(str(lista)) % 100) / 100)) % len(lista)
+    return lista[indice]
 
-def delay(seconds):
-    target_time = seconds * 10**6  # Convert seconds to microseconds
-    start_time = 0
-    while start_time < target_time:
-        start_time += 1
+def retraso(segundos):
+    tiempo_objetivo = segundos * 10**6  # Convertir segundos a microsegundos
+    tiempo_inicio = 0
+    while tiempo_inicio < tiempo_objetivo:
+        tiempo_inicio += 1
 
-def battle_yuri():
+def batalla():
     heroinas = [
         "Ymir (Attack on Titan)", "Saber (Fate/stay night)", "Mikasa Ackerman (Attack on Titan)",
         "Chizuru Mizuhara (Rent-a-Girlfriend)", "Akari Mizunashi (Aria the Animation)", 
@@ -32,31 +32,31 @@ def battle_yuri():
         "Kaede Azusa (Bloom Into You)", "Lalatina (Konosuba)", "Chitoge Kirisaki (Nisekoi)", "Madoka Kaname"
     ]
 
-    print("The yuri battle begins!")
-    delay(2)  # Wait for 2 seconds
+    print("¡La batalla comienza!")
+    retraso(2)  # Esperar 2 segundos
 
-    hero = choose_random(heroinas)
-    villain = choose_random(villanas)
+    heroina = elegir_aleatorio(heroinas)
+    villana = elegir_aleatorio(villanas)
 
-    print(f"{hero} faces {villain}")
-    delay(2)  # Wait for 2 seconds
+    print(f"{heroina} se enfrenta a {villana}")
+    retraso(2)  # Esperar 2 segundos
 
-    winner = choose_random([hero, villain])
-    if winner in heroinas:
-        result = "The Heroine has won!"
+    ganador = elegir_aleatorio([heroina, villana])
+    if ganador in heroinas:
+        resultado = "¡La Heroína ha ganado!"
     else:
-        result = "The Villain has won!"
+        resultado = "¡La Villana ha ganado!"
 
-    print(result)
-    delay(2)
+    print(resultado)
+    retraso(2)
 
-def main():
+def principal():
     while True:
-        battle_yuri()
-        repeat = input("Do you want to simulate another battle? (y/n): ")
-        if repeat.lower() != 'y':
+        batalla()
+        repetir = input("¿Quieres simular otra batalla? (s/n): ")
+        if repetir.lower() != 's':
             break
-        delay(2)  # Wait for 2 seconds before the next simulation
+        retraso(2)  # Esperar 2 segundos antes de la siguiente simulación
 
 if __name__ == "__main__":
-    main()
+    principal()
